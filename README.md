@@ -9,11 +9,16 @@
 4. Баллы суммируются до 100; зачёт — от 60 баллов при выполнении обязательных условий.
 
 ## Навигация
-- `docs/passport.md` — паспорт, средства и веса;
-- `docs/matrix.md` — связь КРМ с оцениванием;
-- `docs/project_criteria.md` — рубрики проекта;
-- `docs/peer_review.md`, `docs/commission_criteria.md` — регламенты;
-- `release/how_to_apply.md` — инструкция преподавателю;
-- `tests/` — проверки полноты, весов и согласованности.
+- [Паспорт ФОС](docs/passport.md) — оценочные средства и веса;
+- [Матрица КРМ](docs/matrix.md) — связь ролей, индикаторов и оценивания;
+- [Критерии проекта](docs/project_criteria.md) — проектные рубрики;
+- [Регламент peer-review](docs/peer_review.md) и [критерии защиты](docs/commission_criteria.md);
+- [Инструкция преподавателю](release/how_to_apply.md);
+- [Чек-лист перед защитой](release/printable/checklist_before_defense.md);
+- [Автоматическая проверка ФОС](tests/validate_fos.py).
+
+## Печатная версия
+
+- [ФОС в формате DOCX](release/printable/ФОС_Б1.В.05_актуальный.docx).
 
 Версия: 1.0, 11.07.2026.
