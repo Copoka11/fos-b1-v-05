@@ -20,6 +20,7 @@ REQUIRED_FILES = [
     "FOS_BRIEF.md",
     "docs/passport.md",
     "docs/target_rpd.md",
+    "docs/working_program.md",
     "docs/course_structure.md",
     "docs/prerequisites.md",
     "docs/measurement_model.md",
@@ -48,6 +49,8 @@ REQUIRED_FILES = [
     "methodology/teachers.md",
     "methodology/resource_usage.md",
     "release/how_to_apply.md",
+    "release/printable/Рабочая_программа_Б1.В.05.docx",
+    "release/printable/Рабочая_программа_Б1.В.05.pdf",
     "validation/report.md",
 ]
 
