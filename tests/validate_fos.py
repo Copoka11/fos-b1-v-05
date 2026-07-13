@@ -8,6 +8,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,11 @@ REQUIRED_FILES = [
     "README.md",
     "FOS_BRIEF.md",
     "docs/passport.md",
+    "docs/target_rpd.md",
+    "docs/course_structure.md",
+    "docs/prerequisites.md",
+    "docs/measurement_model.md",
+    "docs/fos_composition.md",
     "docs/matrix.md",
     "docs/project_criteria.md",
     "docs/peer_review.md",
@@ -27,6 +33,20 @@ REQUIRED_FILES = [
     "data/competency_map/mapping.csv",
     "src/templates/peer_review_form.md",
     "src/templates/commission_form.md",
+    "src/kims/current_control.md",
+    "src/kims/laboratory_works.md",
+    "src/kims/milestone_control.md",
+    "src/kims/final_assessment.md",
+    "resources/README.md",
+    "resources/literature.md",
+    "resources/datasets.md",
+    "resources/tools.md",
+    "resources/baselines_benchmarks.md",
+    "resources/templates.md",
+    "resources/prompts.md",
+    "methodology/students.md",
+    "methodology/teachers.md",
+    "methodology/resource_usage.md",
     "release/how_to_apply.md",
     "validation/report.md",
 ]
@@ -41,6 +61,19 @@ def main() -> None:
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     if missing:
         fail("отсутствуют обязательные файлы: " + ", ".join(missing))
+
+    broken_links: list[str] = []
+    link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    for markdown_path in ROOT.rglob("*.md"):
+        for target in link_pattern.findall(markdown_path.read_text(encoding="utf-8")):
+            target = target.strip().split(maxsplit=1)[0]
+            if target.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            relative_target = unquote(target.split("#", 1)[0])
+            if relative_target and not (markdown_path.parent / relative_target).resolve().exists():
+                broken_links.append(f"{markdown_path.relative_to(ROOT)} -> {target}")
+    if broken_links:
+        fail("сломаны внутренние ссылки: " + "; ".join(broken_links))
 
     known_codes = set(
         re.findall(r"^\s*- code:\s*([A-Z]+-\d+\.\d+)\s*$", COMPETENCIES.read_text(encoding="utf-8"), re.MULTILINE)
@@ -81,6 +114,7 @@ def main() -> None:
         fail("менее двух средств у индикаторов: " + ", ".join(insufficient))
 
     print(f"PASS: обязательные файлы — {len(REQUIRED_FILES)}")
+    print("PASS: внутренние Markdown-ссылки разрешаются")
     print(f"PASS: сумма уникальных весов — {sum(weights.values())}%")
     print(f"PASS: индикаторы — {len(known_codes)}, покрытие каждого — не менее двух средств")
     print("PASS: mapping.csv согласован с competencies.yaml")
