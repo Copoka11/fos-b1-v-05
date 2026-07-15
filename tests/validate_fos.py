@@ -111,6 +111,21 @@ def main() -> None:
     if sum(weights.values()) != 100:
         fail(f"сумма уникальных весов равна {sum(weights.values())}%, ожидалось 100%")
 
+    expected_weights = {
+        "ЛР1": 8,
+        "ЛР2": 8,
+        "ЛР3": 8,
+        "ЛР4": 8,
+        "ЛР5": 8,
+        "ЛР6": 8,
+        "Текущий и рубежный контроль": 12,
+        "Проект": 25,
+        "Peer-review": 5,
+        "Защита": 10,
+    }
+    if weights != expected_weights:
+        fail(f"структура весов не совпадает с утверждённой: {weights}")
+
     coverage = Counter(row["indicator"] for row in rows)
     insufficient = sorted(code for code in known_codes if coverage[code] < 2)
     if insufficient:
@@ -119,6 +134,7 @@ def main() -> None:
     print(f"PASS: обязательные файлы — {len(REQUIRED_FILES)}")
     print("PASS: внутренние Markdown-ссылки разрешаются")
     print(f"PASS: сумма уникальных весов — {sum(weights.values())}%")
+    print("PASS: лабораторные — 6×8%, текущий и рубежный контроль — 12%")
     print(f"PASS: индикаторы — {len(known_codes)}, покрытие каждого — не менее двух средств")
     print("PASS: mapping.csv согласован с competencies.yaml")
 
