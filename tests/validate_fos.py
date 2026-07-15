@@ -14,6 +14,7 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 MAPPING = ROOT / "data" / "competency_map" / "mapping.csv"
 COMPETENCIES = ROOT / "data" / "competency_map" / "competencies.yaml"
+WORKING_PROGRAM = ROOT / "docs" / "working_program.md"
 
 REQUIRED_FILES = [
     "README.md",
@@ -64,6 +65,16 @@ def main() -> None:
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     if missing:
         fail("отсутствуют обязательные файлы: " + ", ".join(missing))
+
+    working_program_text = WORKING_PROGRAM.read_text(encoding="utf-8")
+    level_fragments = [
+        "| № | Раздел или тема | Всего | Л | ЛР | СРС | Индикаторы | Уровень |",
+        "ML-2.1<br>ML-2.2 | Б<br>Б",
+        "ML-2.3 | С",
+        "DL-1.3<br>DL-1.4 | С<br>С",
+    ]
+    if any(fragment not in working_program_text for fragment in level_fragments):
+        fail("в таблице структуры дисциплины отсутствуют ожидаемые уровни индикаторов")
 
     broken_links: list[str] = []
     link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
@@ -132,6 +143,7 @@ def main() -> None:
         fail("менее двух средств у индикаторов: " + ", ".join(insufficient))
 
     print(f"PASS: обязательные файлы — {len(REQUIRED_FILES)}")
+    print("PASS: в структуре дисциплины указаны уровни индикаторов Б/С")
     print("PASS: внутренние Markdown-ссылки разрешаются")
     print(f"PASS: сумма уникальных весов — {sum(weights.values())}%")
     print("PASS: лабораторные — 6×8%, текущий и рубежный контроль — 12%")
