@@ -22,6 +22,8 @@ REQUIRED_FILES = [
     "docs/passport.md",
     "docs/target_rpd.md",
     "docs/working_program.md",
+    "docs/rpd.md",
+    "docs/quality-checklist.md",
     "docs/course_structure.md",
     "docs/prerequisites.md",
     "docs/measurement_model.md",
@@ -39,6 +41,26 @@ REQUIRED_FILES = [
     "src/kims/laboratory_works.md",
     "src/kims/milestone_control.md",
     "src/kims/final_assessment.md",
+    "src/rubrics/laboratory_scale.md",
+    "M1-classical-ml/README.md",
+    "M1-classical-ml/kim-01-lab-1.md",
+    "M1-classical-ml/kim-02-lab-2.md",
+    "M1-classical-ml/kim-03-lab-3.md",
+    "M1-classical-ml/kim-04-lab-4.md",
+    "M2-neural-networks/README.md",
+    "M2-neural-networks/kim-05-lab-5.md",
+    "M2-neural-networks/kim-06-lab-6.md",
+    "Project/README.md",
+    "Exam/README.md",
+    "methodical-guidelines/README.md",
+    "methodical-guidelines/students/README.md",
+    "methodical-guidelines/teachers-assessment/README.md",
+    "methodical-guidelines/teachers-resources/README.md",
+    "team/README.md",
+    "CONTRIBUTING.md",
+    "LICENSE.md",
+    ".gitignore",
+    "other/README.md",
     "resources/README.md",
     "resources/literature.md",
     "resources/datasets.md",
@@ -76,6 +98,24 @@ def main() -> None:
     if any(fragment not in working_program_text for fragment in level_fragments):
         fail("в таблице структуры дисциплины отсутствуют ожидаемые уровни индикаторов")
 
+    laboratory_index = (ROOT / "src" / "kims" / "laboratory_works.md").read_text(encoding="utf-8")
+    lab_rows = re.findall(r"^\|\s*([1-6])\s*\|.*?\|\s*8\s*\|$", laboratory_index, re.MULTILINE)
+    if sorted(lab_rows) != ["1", "2", "3", "4", "5", "6"] or "**48**" not in laboratory_index:
+        fail("сводная таблица лабораторных не подтверждает 6×8=48 баллов")
+
+    required_lab_fragments = {
+        "M1-classical-ml/kim-01-lab-1.md": ["DummyClassifier", "60/20/20", "ML-2.1, ML-2.2"],
+        "M1-classical-ml/kim-02-lab-2.md": ["StratifiedKFold", "минимум два способа", "ML-2.3"],
+        "M1-classical-ml/kim-03-lab-3.md": ["StandardScaler + LogisticRegression", "RBF-ядро", "ML-3.1, ML-3.3"],
+        "M1-classical-ml/kim-04-lab-4.md": ["permutation importance", "eval_set", "ML-3.2, ML-3.3"],
+        "M2-neural-networks/kim-05-lab-5.md": ["сырые logits", "классическим baseline", "DL-1.1, DL-1.2"],
+        "M2-neural-networks/kim-06-lab-6.md": ["минимум 20 ошибок", "параметр `weights`", "DL-1.3, DL-1.4"],
+    }
+    for path, fragments in required_lab_fragments.items():
+        text = (ROOT / path).read_text(encoding="utf-8")
+        if any(fragment not in text for fragment in fragments) or "8 баллов" not in text:
+            fail(f"КИМ лабораторной заполнен неполно: {path}")
+
     broken_links: list[str] = []
     link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
     for markdown_path in ROOT.rglob("*.md"):
@@ -88,6 +128,14 @@ def main() -> None:
                 broken_links.append(f"{markdown_path.relative_to(ROOT)} -> {target}")
     if broken_links:
         fail("сломаны внутренние ссылки: " + "; ".join(broken_links))
+
+    placeholders = [
+        str(path.relative_to(ROOT))
+        for path in ROOT.rglob("*.md")
+        if "[ЗАПОЛНИТЬ]" in path.read_text(encoding="utf-8")
+    ]
+    if placeholders:
+        fail("остались маркеры незаполненных полей: " + ", ".join(placeholders))
 
     known_codes = set(
         re.findall(r"^\s*- code:\s*([A-Z]+-\d+\.\d+)\s*$", COMPETENCIES.read_text(encoding="utf-8"), re.MULTILINE)
@@ -145,8 +193,10 @@ def main() -> None:
     print(f"PASS: обязательные файлы — {len(REQUIRED_FILES)}")
     print("PASS: в структуре дисциплины указаны уровни индикаторов Б/С")
     print("PASS: внутренние Markdown-ссылки разрешаются")
+    print("PASS: маркеры незаполненных полей отсутствуют")
     print(f"PASS: сумма уникальных весов — {sum(weights.values())}%")
     print("PASS: лабораторные — 6×8%, текущий и рубежный контроль — 12%")
+    print("PASS: шесть лабораторных КИМ содержат обязательные методические исправления")
     print(f"PASS: индикаторы — {len(known_codes)}, покрытие каждого — не менее двух средств")
     print("PASS: mapping.csv согласован с competencies.yaml")
 

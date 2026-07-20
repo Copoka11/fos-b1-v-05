@@ -1,0 +1,23 @@
+# ОС и редакторы
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Временные файлы офисных приложений
+~$*.doc
+~$*.docx
+~$*.xlsx
+*.tmp
+
+# Локальные результаты проверки
+validation-report.txt
+
+# Непубличные исходные данные
+/data/krm-v3.0.xlsx
