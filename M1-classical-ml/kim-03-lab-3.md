@@ -35,4 +35,4 @@
 3. Почему масштабирование особенно важно для SVM?
 4. Какие ограничения возникают у RBF-SVM на больших выборках?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).

@@ -35,4 +35,4 @@
 3. Почему встроенная важность признаков может быть смещена?
 4. Для чего нужна ранняя остановка?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).

@@ -35,4 +35,4 @@ README с постановкой и запуском, исполняемый not
 3. Зачем нужен dummy baseline?
 4. Когда стратифицированного случайного разбиения недостаточно?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).

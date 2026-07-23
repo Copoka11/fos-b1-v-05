@@ -35,4 +35,4 @@
 3. Чем режим feature extractor отличается от fine-tuning?
 4. Когда перенос предобученных весов может ухудшить результат?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).

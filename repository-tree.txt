@@ -1,0 +1,57 @@
+.
+├── data/
+│   ├── competency_map/
+│   └── README.md
+├── docs/
+│   ├── attachments/
+│   ├── quality-checklist.md
+│   ├── README.md
+│   └── rpd.md
+├── Exam/
+│   ├── attachments/
+│   ├── kim-final-assessment.md
+│   ├── README.md
+│   └── rubric-defense.md
+├── M1-classical-ml/
+│   ├── kim-01-lab-1.md
+│   ├── kim-02-lab-2.md
+│   ├── kim-03-lab-3.md
+│   ├── kim-04-lab-4.md
+│   ├── kim-05-current-and-milestone-control.md
+│   └── README.md
+├── M2-neural-networks/
+│   ├── kim-05-lab-5.md
+│   ├── kim-06-lab-6.md
+│   └── README.md
+├── methodical-guidelines/
+│   ├── students/
+│   ├── teachers-assessment/
+│   ├── teachers-resources/
+│   └── README.md
+├── Project/
+│   ├── attachments/
+│   ├── peer-review.md
+│   ├── README.md
+│   └── rubric-project.md
+├── resources/
+│   ├── benchmarks/
+│   ├── datasets/
+│   ├── llm-prompts/
+│   ├── other/
+│   ├── papers/
+│   ├── problem-banks/
+│   ├── software/python-libs/
+│   ├── test-banks/
+│   ├── textbooks/
+│   └── README.md
+├── team/
+│   └── README.md
+├── tools/
+│   ├── README.md
+│   └── validate_repository.py
+├── other/
+│   └── README.md
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE.md
+└── README.md

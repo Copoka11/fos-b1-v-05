@@ -35,4 +35,4 @@
 3. Почему SMOTE нельзя применять до разбиения на фолды?
 4. Когда PR-кривая информативнее ROC-кривой?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).

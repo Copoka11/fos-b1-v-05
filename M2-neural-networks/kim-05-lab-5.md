@@ -35,4 +35,4 @@
 3. Чем SGD с momentum отличается от Adam?
 4. По каким признакам определяется переобучение?
 
-Оценивание: [единая рубрика 0–8](../src/rubrics/laboratory_scale.md).
+Оценивание: [единая рубрика 0–8](../methodical-guidelines/teachers-assessment/rubric-laboratory.md).
